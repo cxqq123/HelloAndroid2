@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_main_header"
+        android:layout_width="match_parent"
+        android:background="@color/icx_title_main_bg"
+        android:layout_height="@dimen/icx_title"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_centerInParent="true"
+                    android:text="孙悟空"
+                    android:textColor="@color/icx_white"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_main_back"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            >
+            <RelativeLayout
+                android:id="@+id/izd_rlBack"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp">
+                <ImageView
+                    android:id="@+id/izd_ivBack"
+                    android:layout_width="9dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/icx_back_white" />
+
+                <TextView
+                    android:id="@+id/izd_tvBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/izd_ivBack"
+                    android:gravity="center"
+                    android:text="消息"
+                    android:textColor="@color/icx_white"
+                    android:textSize="16dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="52dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            >
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="16dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/icx_threepoint" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_talk_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#f8f8f8">
+
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_voice"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/voice"/>-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/et_text"-->
+            <!--android:layout_width="240dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_marginLeft="2dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:background="@drawable/bg_main_person"-->
+            <!--android:layout_toRightOf="@id/iv_voice"/>-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_smice"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/smice"-->
+            <!--android:layout_toRightOf="@id/et_text"-->
+         <!--/>-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_more"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/more"-->
+            <!--android:layout_toRightOf="@id/iv_smice"-->
+            <!--/>-->
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_talk_center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_main_header"
+        android:layout_above="@id/rl_talk_bottom"
+        android:background="#ebebeb">
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/icx_white"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+       >
+
+        <RelativeLayout
+            android:id="@+id/rlIcon"
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="16dp" >
+
+            <RelativeLayout
+                android:layout_width="40dp"
+                android:background="@drawable/icx_apple"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true">
+                <ImageView
+                    android:id="@+id/ivIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <!--<View android:layout_width="match_parent"-->
+            <!--android:layout_height="1px"-->
+            <!--android:background="#e0e0e0"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_marginRight="18dp"-->
+            <!--/>-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_toRightOf="@id/rlIcon"
+            android:layout_marginLeft="16dp"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/rlMiddle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_toLeftOf="@+id/rlRight"
+                >
+
+                <TextView
+                    android:id="@+id/icx_message_adapter_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="陈翔"
+                    android:textColor="@color/icx_black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/icx_message_adapter_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="有人给你发了一条消息"
+                    android:gravity="center_vertical"
+                    android:textColor="#999999"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlRight"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1px"
+                android:layout_marginRight="6dp"
+                android:layout_alignParentRight="true" >
+
+                <TextView
+                    android:id="@+id/icx_message_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="星期四"
+                    android:layout_centerInParent="true"
+                    android:textSize="12sp"
+                    />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
