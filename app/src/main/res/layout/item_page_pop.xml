@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+        <ImageView
+                android:id="@+id/ivPagePop"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+        />
+
+        <TextView
+                android:id="@+id/tvPagePop"
+                android:layout_width="wrap_content"
+                android:padding="10dp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/icx_white"
+                android:text="设置"
+                android:layout_marginLeft="50dp"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/icx_white"
+            android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

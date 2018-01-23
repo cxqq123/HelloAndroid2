@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Douya/Douya.iml" filepath="$PROJECT_DIR$/Douya/Douya.iml" />
       <module fileurl="file://$PROJECT_DIR$/HelloAndroid2.iml" filepath="$PROJECT_DIR$/HelloAndroid2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hellorecoder/hellorecoder.iml" filepath="$PROJECT_DIR$/hellorecoder/hellorecoder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/litepaldemo/litepaldemo.iml" filepath="$PROJECT_DIR$/litepaldemo/litepaldemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/remusic/remusic.iml" filepath="$PROJECT_DIR$/remusic/remusic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/storagedemo/storagedemo.iml" filepath="$PROJECT_DIR$/storagedemo/storagedemo.iml" />
     </modules>
   </component>
 </project>
