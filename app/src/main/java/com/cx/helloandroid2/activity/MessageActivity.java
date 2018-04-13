@@ -1,4 +1,4 @@
-package com.cx.helloandroid2;
+package com.cx.helloandroid2.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -17,9 +18,13 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
+import com.cx.helloandroid2.R;
 import com.cx.helloandroid2.adapter.AdapterMessage;
 import com.cx.helloandroid2.adapter.AdapterPagePop;
-import com.cx.helloandroid2.model.ModelMessage;
+import com.cx.helloandroid2.model.ModelUser;
+import com.cx.helloandroid2.server.ParaseData;
+import com.cx.helloandroid2.util.Constancts;
+import com.cx.helloandroid2.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +41,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
 
     private AdapterMessage adapterMessage;
     private Context mContext;
-    private List<ModelMessage> list;
+    private List<ModelUser> users = new ArrayList<>();
 
     @TargetApi(21)
     @Override
@@ -45,6 +50,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         getWindow().setStatusBarColor(Color.parseColor("#393A3F")); //更改状态栏的颜色
         setContentView(R.layout.activity_message);
         mContext =MessageActivity.this;
+        bindData();
         initView();
         setListener();
     }
@@ -64,7 +70,9 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
                 if(position==0){
                     return ;
                 }else{
-                    Intent intent =new Intent(mContext,DetailActivity.class);
+                    Intent intent =new Intent(mContext,TalkActivity.class);
+                    int positionN = position + 1;
+                    intent.putExtra(Constancts.USER_NAME , users.get(positionN).name);
                     startActivity(intent);
                 }
             }
@@ -75,14 +83,38 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
         rlMessageAdd.setOnClickListener(this);
     }
 
-    //初始化数据
-    public List<ModelMessage> initList(){
-        list =new ArrayList<>();
+    public void bindData(){
         Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(),R.drawable.icx_apple);
-        for(int i=0;i<15;i++){
-            list.add(new ModelMessage(bitmap,"cx"+i,"第"+i+"消息","9/"+i));
+        List<String> data = ParaseData.getAllGroupList(mContext);
+        for(String str : data){
+            Log.e("cx" , "getAllGroupList : " + str);
         }
-        return list;
+        List<String> friends = ParaseData.getFriendList(mContext,"Tony");
+        for(String str : friends){
+            //获取好友
+            Log.e("cx" , "Tony 的好友" + str);
+            ModelUser modelUser = new ModelUser();
+            modelUser.name = str;
+            modelUser.icon = bitmap;
+            modelUser.date = Utils.Date2Str(System.currentTimeMillis());
+            modelUser.message = ParaseData.getFriendProfile(mContext,str)[1];
+            users.add(modelUser);
+        }
+        List<String> groups = ParaseData.getGroupList(mContext,"Tony");
+        for(String str : groups){
+            Log.e("cx" , "Tony getGroupList " + str);
+        }
+
+        String[] profiles = ParaseData.getFriendProfile(mContext,"Tony");
+        for(int i = 0 ; i < profiles.length ; i++){
+            Log.e("cx" , "Tony getFriendProfile : " + profiles[i]);
+        }
+
+    }
+
+    //初始化数据
+    public List<ModelUser> initList(){
+        return users;
     }
 
     /**

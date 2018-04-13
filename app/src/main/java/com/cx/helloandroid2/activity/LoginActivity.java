@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,9 +18,9 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.cx.helloandroid2.MessageActivity;
 import com.cx.helloandroid2.R;
 import com.cx.helloandroid2.server.ServerManager;
+import com.cx.helloandroid2.util.Utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,6 +34,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btnLogin;
 
     private ServerManager serverManager = ServerManager.getServerManager();
+
+    private String username , password = "";
+
+    private static final int LOGIN_WHAT = 1;
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case LOGIN_WHAT:
+                    boolean isLogin = (boolean) msg.obj;
+                    handlerLogin(isLogin);
+                    break;
+            }
+        }
+    };
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +64,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void initView(){
         rlMainBack = (RelativeLayout) findViewById(R.id.rl_main_back);
         etName = (EditText) findViewById(R.id.et_name);
+        if(!Utils.isNullOrEmpty(etName.getText().toString())){
+            String str = etName.getText().toString();
+            etName.setSelection(str.length());
+        }
+        etName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                etName.setSelection(s.length() - 1);
+            }
+        });
         etPassword = (EditText) findViewById(R.id.et_password);
         btnLogin = (Button) findViewById(R.id.btn_login);
-
         serverManager.start(); //启动线程
     }
 
@@ -56,7 +95,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void goHome(){
-//        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
         Intent intent = new Intent(mContext, MessageActivity.class);
         startActivity(intent);
     }
@@ -69,46 +107,58 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.btn_login:
-                String username = etName.getText().toString();
-                String password = etPassword.getText().toString();
-                if(login(username,password)){
-                    serverManager.setUsername(username);
-                    goHome();
-                    finish();
-                }else {
-                    etName.setText("");
-                    etPassword.setText("");
-                    Toast.makeText(mContext,"用户名与密码不正确",Toast.LENGTH_SHORT).show();
-                }
+                username = etName.getText().toString();
+                password = etPassword.getText().toString();
+                loginTask(username,password);
                 break;
         }
     }
 
-    private boolean login(String username,String password){
-        //确认用户名和密码是否合法
 
-        if(username.equals("cx") && password.equals("123")){
-            return true;
+    public void handlerLogin(boolean isLogin){
+        if (isLogin) {
+            serverManager.setUsername(username);
+            serverManager.setUsername(username);
+            goHome();
+            finish();
+        } else {
+            etName.setText("");
+            etPassword.setText("");
+            Toast.makeText(mContext,"用户名与密码不正确",Toast.LENGTH_SHORT).show();
         }
-        if(username == null || password == null){
-            return false;
-        }
-        //发消息给服务器
-        String msg = "[LOGIN]:[" + username + ", " + password + "]";
-        Log.i("cx",msg);
-        serverManager.sendMessage(this,msg);
-        //从服务器上获取ACK 确认信息
-        String ack = serverManager.getMessage();
-//        Log.i("cx",ack);
-        //处理ack返回的消息
-        if(ack == null){
-            return false;
-        }
-        serverManager.setMessage(null);
-        String p = "\\[ACKLOGIN\\]:\\[(.*)\\]";
-        Pattern pattern = Pattern.compile(p);
-        Matcher matcher = pattern.matcher(ack);
-        boolean flag = matcher.find() && matcher.group(1).equals("1");
-        return flag;
+    }
+
+    private void loginTask(final String userName , final String password){
+        new Thread(){
+            @Override
+            public void run() {
+                boolean isLogin = false;
+                super.run();
+                if (userName == null || userName.length() > 10 || password.length() > 20) {
+                    return;
+                }
+                // send msg to servers
+                String msg = "[LOGIN]:[" + userName + ", " + password + "]";
+                serverManager.sendMessage(mContext , msg);
+                // get msg from servers return
+                String ack = serverManager.getMessage();
+                Log.e("cx" ,"ack :" + ack);
+                // deal msg
+                if (ack == null) {
+                    return ;
+                }
+                serverManager.setMessage(null);
+                String p = "\\[ACKLOGIN\\]:\\[(.*)\\]";
+                Pattern pattern = Pattern.compile(p);
+                Matcher matcher = pattern.matcher(ack);
+                isLogin = matcher.find() && matcher.group(1).equals("1");
+
+                Message message = new Message();
+                message.what = LOGIN_WHAT;
+                message.obj = isLogin;
+                mHandler.sendMessage(message);
+                return ;
+            }
+        }.start();
     }
 }

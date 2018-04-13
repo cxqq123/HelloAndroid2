@@ -82,7 +82,7 @@
 
             <RelativeLayout
                 android:id="@+id/rlRight"
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="1px"
                 android:layout_marginRight="6dp"
@@ -92,7 +92,7 @@
                     android:id="@+id/icx_message_date"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:text="星期四"
+                    android:text="="
                     android:layout_centerInParent="true"
                     android:textSize="12sp"
                     />

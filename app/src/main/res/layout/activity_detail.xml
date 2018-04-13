@@ -111,9 +111,9 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_detail_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="cx羽"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="18dp"
                     android:textColor="#c4bfc4"
@@ -165,7 +165,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/icx_tv_email"
+                    android:id="@+id/icx_tv_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="手机"
@@ -174,13 +174,13 @@
                     android:layout_marginLeft="14dp"
                     android:textColor="@color/icx_black"/>
                 <TextView
-                    android:id="@+id/icx_tv_showEmail"
+                    android:id="@+id/icx_tv_showPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="123456789"
+                    android:text="15180463773"
                     android:layout_marginLeft="10dp"
                     android:textColor="#4c75a5"
-                    android:layout_toRightOf="@id/icx_tv_email"
+                    android:layout_toRightOf="@id/icx_tv_phone"
                     android:textSize="15sp"
                     android:layout_centerVertical="true"/>
                 <View
@@ -199,7 +199,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/icx_tv_phone"
+                    android:id="@+id/icx_tv_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="邮箱"
@@ -208,13 +208,13 @@
                     android:layout_marginLeft="14dp"
                     android:textColor="@color/icx_black"/>
                 <TextView
-                    android:id="@+id/icx_tv_showPhone"
+                    android:id="@+id/icx_tv_showEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="744185734@qq.com"
                     android:layout_marginLeft="10dp"
                     android:textColor="#4c75a5"
-                    android:layout_toRightOf="@id/icx_tv_phone"
+                    android:layout_toRightOf="@id/icx_tv_email"
                     android:textSize="15sp"
                     android:layout_centerVertical="true"/>
                 <View

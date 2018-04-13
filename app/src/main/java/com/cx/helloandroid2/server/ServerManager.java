@@ -16,7 +16,8 @@ import java.net.Socket;
 
 public class ServerManager extends Thread{
 
-    private static final String IP = "192.168.1.222";
+    private static final String IP = "192.168.1.174";
+    private static final int POST = 30001;
     private Socket socket;
     private String username;
     private int iconID;
@@ -36,7 +37,7 @@ public class ServerManager extends Thread{
 
     public void run() {
         try {
-            socket = new Socket(IP,27778);
+            socket = new Socket(IP,POST);
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF-8"));
             bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(),"UTF-8"));
 

@@ -1,7 +1,8 @@
-package com.cx.helloandroid2;
+package com.cx.helloandroid2.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,11 +18,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cx.helloandroid2.R;
 import com.cx.helloandroid2.adapter.AdapterTalk;
 import com.cx.helloandroid2.model.ModelTalk;
+import com.cx.helloandroid2.util.Constancts;
 import com.cx.helloandroid2.util.EmptyUtil;
+import com.cx.helloandroid2.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,6 +58,8 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView ivVoice;
     private ImageView ivSmice;
     private ImageView ivMore;
+    private TextView tvTalkUserName;
+
 
     private AdapterTalk adapterTalk;
 
@@ -67,7 +74,7 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         getWindow().setStatusBarColor(Color.parseColor("#393A3F")); //更改状态栏的颜色
         setContentView(R.layout.activity_talk);
-        mContext =TalkActivity.this;
+        mContext = TalkActivity.this;
         inputManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE); //实例化输入法管理器
         initView();
         bindData(talkList); //绑定数据
@@ -81,6 +88,7 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
         rlTalkAll = (RelativeLayout) findViewById(R.id.rl_talk_all);
         llMessage = (LinearLayout) findViewById(R.id.ll_message);
         lvMessage = (ListView) findViewById(R.id.lv_message);
+        tvTalkUserName = (TextView) findViewById(R.id.tv_talk_user_name);
 
         btnSend = (Button) findViewById(R.id.btn_send);
         ivVoice = (ImageView) findViewById(R.id.iv_voice);
@@ -124,6 +132,12 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void bindData(List<ModelTalk> result){
+
+        Intent intent = getIntent();
+        String userName = intent.getStringExtra(Constancts.USER_NAME);
+        if(!Utils.isNullOrEmpty(userName)){
+            tvTalkUserName.setText(userName);
+        }
         if(result == null || result.size() ==0){
             llMessage.setVisibility(View.VISIBLE);
             lvMessage.setVisibility(View.GONE);
