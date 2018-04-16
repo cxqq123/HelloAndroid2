@@ -71,7 +71,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
                     return ;
                 }else{
                     Intent intent =new Intent(mContext,TalkActivity.class);
-                    int positionN = position + 1;
+                    int positionN = position - 1;
                     intent.putExtra(Constancts.USER_NAME , users.get(positionN).name);
                     startActivity(intent);
                 }

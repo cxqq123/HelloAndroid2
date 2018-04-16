@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void afterTextChanged(Editable s) {
-                etName.setSelection(s.length() - 1);
+
             }
         });
         etPassword = (EditText) findViewById(R.id.et_password);

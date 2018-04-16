@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.cx.helloandroid2.R;
 import com.cx.helloandroid2.activity.DetailActivity;
 import com.cx.helloandroid2.model.ModelUser;
+import com.cx.helloandroid2.util.Constancts;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class AdapterMessage extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
+    public View getView(final int position, View convertView, ViewGroup viewGroup) {
         ViewHolder holder=null;
         if(convertView==null){
             holder=new ViewHolder();
@@ -66,6 +67,7 @@ public class AdapterMessage extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext , DetailActivity.class);
+                intent.putExtra(Constancts.USER_NAME , adapterMessages.get(position).name);
                 mContext.startActivity(intent);
             }
         });

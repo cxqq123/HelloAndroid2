@@ -1,1 +1,1 @@
-include ':app', ':litepaldemo', ':hellorecoder', ':storagedemo', ':remusic', ':Douya', ':hellowebview'
+include ':app', ':litepaldemo', ':hellorecoder', ':storagedemo', ':remusic', ':Douya', ':hellowebview', ':sdk'

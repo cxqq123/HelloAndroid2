@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/hellowebview/hellowebview.iml" filepath="$PROJECT_DIR$/hellowebview/hellowebview.iml" />
       <module fileurl="file://$PROJECT_DIR$/litepaldemo/litepaldemo.iml" filepath="$PROJECT_DIR$/litepaldemo/litepaldemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/remusic/remusic.iml" filepath="$PROJECT_DIR$/remusic/remusic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk/sdk.iml" filepath="$PROJECT_DIR$/sdk/sdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/storagedemo/storagedemo.iml" filepath="$PROJECT_DIR$/storagedemo/storagedemo.iml" />
     </modules>
   </component>

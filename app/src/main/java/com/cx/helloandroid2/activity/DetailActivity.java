@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -52,6 +53,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         ivApple = (ImageView) findViewById(R.id.iv_apple);
         tvDetailUserName = (TextView) findViewById(R.id.tv_detail_user_name);
 
+        Log.e("cx" , "username :" + userName);
         if(!Utils.isNullOrEmpty(userName)) {
             tvDetailUserName.setText(userName);
         }else{

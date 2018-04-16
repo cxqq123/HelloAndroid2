@@ -5,12 +5,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cx.helloandroid2.R;
 import com.cx.helloandroid2.model.ModelTalk;
-import com.cx.helloandroid2.util.EmptyUtil;
 
 import java.util.List;
 
@@ -19,6 +17,7 @@ import java.util.List;
  */
 
 public class AdapterTalk extends BaseAdapter{
+    //发送消息Adapter
 
     private Context myContext;
     private List<ModelTalk> data;
@@ -29,6 +28,10 @@ public class AdapterTalk extends BaseAdapter{
         this.data = data;
     }
 
+    public void setData(List<ModelTalk> data){
+        this.data = data;
+        notifyDataSetChanged();
+    }
     @Override
     public int getCount() {
         return data.size();
@@ -51,9 +54,6 @@ public class AdapterTalk extends BaseAdapter{
             convertView = View.inflate(myContext, R.layout.adapter_talk, null);
             holder = new ViewHolder();
             holder.tvMyFeed = (TextView)convertView.findViewById(R.id.tvMyFeed);
-            holder.tvFeedBack = (TextView)convertView.findViewById(R.id.tvFeedBack);
-            holder.rlFeedBack = (RelativeLayout)convertView.findViewById(R.id.rlFeedBack);
-            holder.ivSystemHead = (ImageView)convertView.findViewById(R.id.ivSystemHead);
             holder.ivMyHead = (ImageView) convertView.findViewById(R.id.ivMyHead);
             convertView.setTag(holder);
         }else{
@@ -62,23 +62,11 @@ public class AdapterTalk extends BaseAdapter{
         ModelTalk info = data.get(position);
         holder.tvMyFeed.setText(info.fbContent); //我发的消息
         holder.ivMyHead.setImageResource(R.drawable.icx_user_icon); //我的头像
-
-        if(EmptyUtil.isEmptyOrNull(info.fbReply)){ //系统回复的消息
-            holder.rlFeedBack.setVisibility(View.GONE);
-        }else{
-            holder.tvFeedBack.setText(info.fbReply);
-            holder.rlFeedBack.setVisibility(View.VISIBLE);
-            //系统回复
-            holder.ivSystemHead.setImageResource(R.mipmap.ic_launcher_round);//系统的头像
-        }
         return convertView;
     }
 
     class ViewHolder{
         public TextView tvMyFeed;
-        public TextView tvFeedBack;
-        public RelativeLayout rlFeedBack;
         public ImageView ivMyHead;
-        public ImageView ivSystemHead;
     }
 }
