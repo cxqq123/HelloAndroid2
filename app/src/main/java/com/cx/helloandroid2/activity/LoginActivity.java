@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         getWindow().setStatusBarColor(Color.parseColor("#393A3F")); //更改状态栏的颜色
         setContentView(R.layout.activity_login);
         mContext = LoginActivity.this;
+        ServerManager.setContext(mContext);
         initView();
         setListener();
     }
@@ -109,7 +110,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btn_login:
                 username = etName.getText().toString();
                 password = etPassword.getText().toString();
-                loginTask(username,password);
+                if(Utils.getNetworkState(mContext) == 0){
+                    Toast.makeText(mContext,"当前无网络连接,请连接网络",Toast.LENGTH_LONG).show();
+                }else{
+                    loginTask(username,password);
+                }
                 break;
         }
     }

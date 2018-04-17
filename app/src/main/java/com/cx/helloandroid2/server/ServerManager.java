@@ -1,7 +1,10 @@
 package com.cx.helloandroid2.server;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+
+import com.cx.helloandroid2.util.Constancts;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,7 +19,7 @@ import java.net.Socket;
 
 public class ServerManager extends Thread{
 
-    private static final String IP = "192.168.1.174";
+    private static final String IP = "119.29.188.137";
     private static final int POST = 30001;
     private Socket socket;
     private String username;
@@ -26,11 +29,15 @@ public class ServerManager extends Thread{
     private BufferedWriter bufferedWriter;
     private ReceiveChatMsg receiveChatMsg;
     private static final ServerManager serverManager = new ServerManager();
-
     public static ServerManager getServerManager() {
         return serverManager;
     }
 
+    private static Context mContext;
+
+    public static void setContext(Context context){
+        mContext = context;
+    }
     private ServerManager() {
         receiveChatMsg = new ReceiveChatMsg();
     }
@@ -50,7 +57,12 @@ public class ServerManager extends Thread{
                     Log.i("cx","receive:" + m);
                     //解析接收到的消息
                     if(ParaseData.getAction(m).equals("GETCHATMSG")){
-                        receiveChatMsg.delChatMsg(m);
+                        Intent intent = new Intent();
+                        intent.setAction(Constancts.READ_CHAT_MESSAGE);
+                        intent.putExtra(Constancts.READ_CHAT_MESSAGE , m);
+                        Log.e("cx" , "收到服务器传来的消息，开始发送广播 :" + m);
+                        mContext.sendBroadcast(intent);
+//                        receiveChatMsg.delChatMsg(m);
                     }else {
                         message = m;
                     }

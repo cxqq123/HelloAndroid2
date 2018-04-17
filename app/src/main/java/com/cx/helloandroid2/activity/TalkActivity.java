@@ -1,11 +1,16 @@
 package com.cx.helloandroid2.activity;
 
-import android.annotation.TargetApi;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,7 +28,7 @@ import android.widget.Toast;
 import com.cx.helloandroid2.R;
 import com.cx.helloandroid2.adapter.AdapterChatMsg;
 import com.cx.helloandroid2.adapter.AdapterTalk;
-import com.cx.helloandroid2.model.ChatMsg;
+import com.cx.helloandroid2.model.ModelChatMsg;
 import com.cx.helloandroid2.model.ModelTalk;
 import com.cx.helloandroid2.server.ParaseData;
 import com.cx.helloandroid2.server.ServerManager;
@@ -42,8 +47,7 @@ import java.util.regex.Pattern;
 
 public class TalkActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private String TAG="cx Log";
-
+    private String TAG = "cx Log";
     private RelativeLayout rlMainBack;
     private EditText etText;
     private boolean isShowSoftKeyBoard;
@@ -57,7 +61,7 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
 
     private String chatObj;
     private String group;
-    private List<ChatMsg> chatMsgList = new ArrayList<>();
+    public  List<ModelChatMsg> modelChatMsgList = new ArrayList<>();
     private ImageView ivVoice;
     private TextView tvTalkUserName;
     private TextView tvSend;
@@ -65,12 +69,27 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
     public  AdapterChatMsg adapterChatMsgList;
     private AdapterTalk adapterTalk;
 
-
     //输入法管理器
     private InputMethodManager inputManager;
 
+    private ReadChatMessageBroadcast readChatMessageBroadcast;
+    private IntentFilter intentFilter;
 
-    @TargetApi(21)
+    private static final int TALK_WHAT = 1;
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch(msg.what){
+                case TALK_WHAT :
+                    ModelChatMsg modelChatMsg = (ModelChatMsg) msg.obj;
+                    handleChatMsg(modelChatMsg);
+                    break;
+            }
+        }
+    };
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +97,7 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_talk);
         mContext = TalkActivity.this;
         inputManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE); //实例化输入法管理器
+        ServerManager.setContext(mContext);
         initView();
         bindData(); //绑定数据
         setListener();
@@ -93,7 +113,12 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
         tvTalkUserName = (TextView) findViewById(R.id.tv_talk_user_name);
         tvSend = (TextView) findViewById(R.id.tv_send);
         ivVoice = (ImageView) findViewById(R.id.iv_voice);
-
+//
+        //注册一条广播，用来收集服务器返回的信息
+        readChatMessageBroadcast = new ReadChatMessageBroadcast();
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(Constancts.READ_CHAT_MESSAGE);
+        registerReceiver(readChatMessageBroadcast,intentFilter);
 
 
         //编辑框中的字的变化
@@ -131,13 +156,13 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
         }
         chatObj = intent.getStringExtra(Constancts.USER_NAME);
         group = ParaseData.getAllGroupList(this).contains(chatObj) ? "0" : "1";
-        chatMsgList.clear();
+        modelChatMsgList.clear();
         loadChatMsg();
-        adapterChatMsgList = new AdapterChatMsg(TalkActivity.this, R.layout.adapter_chat_other, chatMsgList);
+        adapterChatMsgList = new AdapterChatMsg(TalkActivity.this, R.layout.adapter_chat_other, modelChatMsgList);
         lvMessage.setAdapter(adapterChatMsgList);
 
-
     }
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     @Override
     public void onClick(View view) {
         switch(view.getId()){
@@ -152,8 +177,8 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(mContext,"发送了一条消息",Toast.LENGTH_SHORT).show();
 
                 String content = etText.getText().toString();
-                if (!content.isEmpty()) {
-                    ChatMsg msg = new ChatMsg();
+                if (!Utils.isNullOrEmpty(content)) {
+                    ModelChatMsg msg = new ModelChatMsg();
                     msg.setContent(content);
                     msg.setUsername(ServerManager.getServerManager().getUsername());
                     msg.setIconID(ServerManager.getServerManager().getIconID());
@@ -161,8 +186,8 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
                     msg.setChatObj(chatObj);
                     msg.setGroup(group.equals("0") ? chatObj : " ");
                     if (sendToChatObj(msg.getContent())) {
-                        ChatMsg.chatMsgList.add(msg);
-                        chatMsgList.add(msg);
+                        ModelChatMsg.modelChatMsgList.add(msg);
+                        modelChatMsgList.add(msg);
                         etText.setText("");
                     } else {
                         Toast.makeText(TalkActivity.this, "send failed", Toast.LENGTH_SHORT).show();
@@ -184,14 +209,14 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
 //        refreshData();
     }
 
-    private void refreshData(){
+    private void refreshData(List<ModelChatMsg> modelChatMsgs){
         if(adapterChatMsgList == null){
-            adapterChatMsgList = new AdapterChatMsg(mContext,R.layout.adapter_chat_other,chatMsgList);
+            adapterChatMsgList = new AdapterChatMsg(mContext,R.layout.adapter_chat_other, modelChatMsgs);
             adapterChatMsgList.notifyDataSetChanged();
         }else{
-            adapterChatMsgList.setData(chatMsgList);
+            adapterChatMsgList.setData(modelChatMsgs);
         }
-        lvMessage.setAdapter(adapterTalk);
+        lvMessage.setAdapter(adapterChatMsgList);
     }
 
     private boolean sendToChatObj(String content) {
@@ -215,20 +240,26 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
 
     private void loadChatMsg() {
         if (group == "0") {
-            for (ChatMsg chatMsg : ChatMsg.chatMsgList) {
-                if (chatMsg.getGroup().equals(chatObj)) {
-                    Log.e("cx" ,"loadChatMsg :" + chatMsg.toString());
-                    chatMsgList.add(chatMsg);
+            for (ModelChatMsg modelChatMsg : ModelChatMsg.modelChatMsgList) {
+                if (modelChatMsg.getGroup().equals(chatObj)) {
+                    Log.e("cx" ,"loadChatMsg :" + modelChatMsg.toString());
+                    modelChatMsgList.add(modelChatMsg);
                 }
             }
         } else {
-            for (ChatMsg chatMsg : ChatMsg.chatMsgList) {
-                if (chatMsg.getChatObj().equals(chatObj) && chatMsg.getGroup().equals(" ")) {
-                    Log.e("cx" ,"loadChatMsg 2:" + chatMsg.toString());
-                    chatMsgList.add(chatMsg);
+            for (ModelChatMsg modelChatMsg : ModelChatMsg.modelChatMsgList) {
+                if (modelChatMsg.getChatObj().equals(chatObj) && modelChatMsg.getGroup().equals(" ")) {
+                    Log.e("cx" ,"loadChatMsg 2:" + modelChatMsg.toString());
+                    modelChatMsgList.add(modelChatMsg);
                 }
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(readChatMessageBroadcast);
     }
 
     /**
@@ -236,5 +267,64 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
      */
     public void hideSoftInput(){
         inputManager.hideSoftInputFromWindow(etText.getWindowToken(),0);
+    }
+
+
+    private class ReadChatMessageBroadcast extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String msg = intent.getStringExtra(Constancts.READ_CHAT_MESSAGE);
+            Log.e("cx" , "ReadChatMessageBroadcast :" + msg);
+            delChatMsg(msg);
+        }
+    }
+
+    private void handleChatMsg(ModelChatMsg modelChatMsg){
+        if(modelChatMsg != null){
+            modelChatMsgList.add(modelChatMsg);
+            refreshData(modelChatMsgList);
+        }
+    }
+
+    public void delChatMsg(final String msg){
+        final String[] sendName = {null};
+        final String[] content = {null};
+        final String[] avatarID = {null};
+        final String[] fileType = {null};
+        final String[] group = {null};
+
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                ServerManager.getServerManager().setMessage(null);
+                String p = "\\[GETCHATMSG\\]:\\[(.*), (.*), (.*), (.*), (.*)\\]";
+                Pattern pattern = Pattern.compile(p);
+                Matcher matcher = pattern.matcher(msg);
+                if (matcher.find()) {
+                    sendName[0] = matcher.group(1);
+                    content[0] = matcher.group(2);
+                    avatarID[0] = matcher.group(3);
+                    fileType[0] = matcher.group(4);
+                    group[0] = matcher.group(5);
+
+                    ModelChatMsg modelChatMsg = new ModelChatMsg();
+                    modelChatMsg.setMyInfo(false);
+                    modelChatMsg.setContent(content[0]);
+                    modelChatMsg.setChatObj(sendName[0]);
+                    modelChatMsg.setUsername(ServerManager.getServerManager().getUsername());
+                    modelChatMsg.setGroup(group[0]);
+                    modelChatMsg.setIconID(Integer.parseInt(avatarID[0]));
+
+                    Message message = new Message();
+                    message.what = TALK_WHAT;
+                    message.obj = modelChatMsg;
+                    mHandler.sendMessage(message);
+                    Log.v("cx" , "modelChatMsg :" + modelChatMsg.toString());
+                }
+            }
+        }.start();
+
     }
 }

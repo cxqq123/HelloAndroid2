@@ -9,14 +9,12 @@ import android.content.Context;
 import android.support.v7.preference.DialogPreference;
 import android.util.AttributeSet;
 
-import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
-
 public class LicensesDialogPreference extends DialogPreference {
-
-    static {
-        PreferenceFragmentCompat.registerPreferenceFragment(LicensesDialogPreference.class,
-                LicensesDialogFragment.class);
-    }
+//
+//    static {
+//        PreferenceFragmentCompat.registerPreferenceFragment(LicensesDialogPreference.class,
+//                LicensesDialogFragment.class);
+//    }
 
     public LicensesDialogPreference(Context context) {
         super(context);

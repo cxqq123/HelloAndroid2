@@ -12,42 +12,42 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cx.helloandroid2.R;
-import com.cx.helloandroid2.model.ChatMsg;
+import com.cx.helloandroid2.model.ModelChatMsg;
 import com.cx.helloandroid2.util.ImageManager;
 
 import java.util.List;
 
-public class AdapterChatMsg extends ArrayAdapter<ChatMsg> {
+public class AdapterChatMsg extends ArrayAdapter<ModelChatMsg> {
 
     private LayoutInflater inflater;
-    private List<ChatMsg> chatMsgs;
-    public AdapterChatMsg(@NonNull Context context, @LayoutRes int resource, List<ChatMsg> chatMsgs) {
+    private List<ModelChatMsg> modelChatMsgs;
+    public AdapterChatMsg(@NonNull Context context, @LayoutRes int resource, List<ModelChatMsg> modelChatMsgs) {
         super(context, resource);
         this.inflater = LayoutInflater.from(context);
-        this.chatMsgs = chatMsgs;
+        this.modelChatMsgs = modelChatMsgs;
     }
 
-    public void setData(List<ChatMsg> data){
-        this.chatMsgs = data;
+    public void setData(List<ModelChatMsg> data){
+        this.modelChatMsgs = data;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return chatMsgs.size();
+        return modelChatMsgs.size();
     }
 
     @Nullable
     @Override
-    public ChatMsg getItem(int position) {
-        return chatMsgs.get(position);
+    public ModelChatMsg getItem(int position) {
+        return modelChatMsgs.get(position);
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        ChatMsg msg = getItem(position);
+        ModelChatMsg msg = getItem(position);
         View view;
         ViewHolder viewHolder;
 
@@ -68,9 +68,9 @@ public class AdapterChatMsg extends ArrayAdapter<ChatMsg> {
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
         }
-        viewHolder.icon.setImageResource(ImageManager.imagesAvatar[chatMsgs.get(position).getIconID()]);
-        viewHolder.username.setText(msg.isMyInfo() ? chatMsgs.get(position).getUsername() : chatMsgs.get(position).getChatObj());
-        viewHolder.content.setText(chatMsgs.get(position).getContent());
+        viewHolder.icon.setImageResource(ImageManager.imagesAvatar[modelChatMsgs.get(position).getIconID()]);
+        viewHolder.username.setText(msg.isMyInfo() ? modelChatMsgs.get(position).getUsername() : modelChatMsgs.get(position).getChatObj());
+        viewHolder.content.setText(modelChatMsgs.get(position).getContent());
         return view;
     }
 

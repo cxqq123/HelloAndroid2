@@ -1,11 +1,8 @@
 package com.cx.helloandroid2.model;
 
+
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by Administrator on 2017/11/8.
- */
 
 public class ModelChatMsg {
 
@@ -16,22 +13,27 @@ public class ModelChatMsg {
     private String chatObj;
     private String group;
 
-    public static List<ModelChatMsg> chatMsgList = new ArrayList<>();
-    public boolean isMyInfo() {
-        return myInfo;
+    @Override
+    public String toString() {
+        return "ModelChatMsg{" +
+                "myInfo=" + myInfo +
+                ", iconID=" + iconID +
+                ", username='" + username + '\'' +
+                ", content='" + content + '\'' +
+                ", chatObj='" + chatObj + '\'' +
+                ", group='" + group + '\'' +
+                '}';
     }
 
-    public void setMyInfo(boolean myInfo) {
-        this.myInfo = myInfo;
+    public String getGroup() {
+        return group;
     }
 
-    public int getIconID() {
-        return iconID;
+    public void setGroup(String group) {
+        this.group = group;
     }
 
-    public void setIconID(int iconID) {
-        this.iconID = iconID;
-    }
+    public static List<ModelChatMsg> modelChatMsgList = new ArrayList<>();
 
     public String getUsername() {
         return username;
@@ -49,19 +51,27 @@ public class ModelChatMsg {
         this.content = content;
     }
 
+    public int getIconID() {
+        return iconID;
+    }
+
+    public void setIconID(int iconID) {
+        this.iconID = iconID;
+    }
+
+    public boolean isMyInfo() {
+        return myInfo;
+    }
+
+    public void setMyInfo(boolean myInfo) {
+        this.myInfo = myInfo;
+    }
+
     public String getChatObj() {
         return chatObj;
     }
 
     public void setChatObj(String chatObj) {
         this.chatObj = chatObj;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
     }
 }
