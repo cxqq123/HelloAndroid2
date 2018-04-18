@@ -12,7 +12,9 @@ public class ModelUser {
     public  String name;
     public  String message;
     public  String date;
-
+    public String userPhone;
+    public String userEmail;
+    public String userPart;
     public ModelUser(){
 
     }

@@ -26,10 +26,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.RegActivity" />
-        <activity android:name=".activity.MainActivity">
-
-
-        </activity>
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.ScanActivity" />
+        <activity android:name=".activity.WebViewActivity"></activity>
     </application>
 
 </manifest>

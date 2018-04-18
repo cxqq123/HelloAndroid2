@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/icx_white">
+    android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rl_main_header"
         android:layout_width="match_parent"
+        android:background="@color/icx_title_main_bg"
         android:layout_height="@dimen/icx_title"
-        android:background="@color/icx_title_main_bg">
-
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -31,7 +34,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:layout_centerInParent="true"
-                    android:text="注册"
+                    android:text="网页跳转"
                     android:textColor="@color/icx_white"
                     android:textSize="18sp" />
 
@@ -45,12 +48,10 @@
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             >
-
             <RelativeLayout
                 android:id="@+id/izd_rlBack"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp">
-
                 <ImageView
                     android:id="@+id/izd_ivBack"
                     android:layout_width="9dp"
@@ -71,7 +72,6 @@
                     android:text="返回"
                     android:textColor="@color/icx_white"
                     android:textSize="16dp" />
-
             </RelativeLayout>
         </RelativeLayout>
 
@@ -87,67 +87,14 @@
                 android:layout_centerInParent="true"
                 android:src="@drawable/icx_threepoint" />
         </RelativeLayout>
+
     </RelativeLayout>
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:background="@mipmap/red_apple"
-        android:layout_marginTop="120dp"/>
-
-    <EditText
-        android:id="@+id/et_name"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
-        android:textSize="14dp"
-        android:paddingLeft="5dp"
-        android:hint="注册账号名"
-        android:background="@drawable/bg_et"
-        />
-
-    <EditText
-        android:id="@+id/et_password"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/et_name"
-        android:layout_marginTop="2dp"
-        android:password="true"
-        android:hint="注册密码"
-        android:textSize="14dp"
-        android:paddingLeft="5dp"
-        android:background="@drawable/bg_et"
-        />
-
-    <EditText
-        android:id="@+id/et_password_again"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/et_password"
-        android:layout_marginTop="2dp"
-        android:password="true"
-        android:hint="再次确认密码"
-        android:textSize="14dp"
-        android:paddingLeft="5dp"
-        android:background="@drawable/bg_et"
-        />
+    <WebView
+        android:id="@+id/web"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </WebView>
 
 
-    <Button
-        android:id="@+id/btn_reg"
-        android:layout_width="280dp"
-        android:layout_height="40dp"
-        android:background="@drawable/bg_login_login"
-        android:layout_below="@id/et_password_again"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="注册"
-        android:textColor="@color/icx_white"
-        />
-
-
-</RelativeLayout>
+</LinearLayout>

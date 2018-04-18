@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_main_header"
+        android:layout_width="match_parent"
+        android:background="@color/icx_title_main_bg"
+        android:layout_height="@dimen/icx_title"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_centerInParent="true"
+                    android:text="设置"
+                    android:textColor="@color/icx_white"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_main_back"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            >
+            <RelativeLayout
+                android:id="@+id/izd_rlBack"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp">
+                <ImageView
+                    android:id="@+id/izd_ivBack"
+                    android:layout_width="9dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/icx_back_white" />
+
+                <TextView
+                    android:id="@+id/izd_tvBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/izd_ivBack"
+                    android:gravity="center"
+                    android:text="返回"
+                    android:textColor="@color/icx_white"
+                    android:textSize="16dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="52dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            >
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="16dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/icx_threepoint" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:background="@color/icx_title_main_bg">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.cx.helloandroid2.view.CircleImageView
+                    android:id="@+id/iv_person"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:background="@drawable/acx"
+                    android:layout_marginTop="30dp"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="cx羽"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/iv_person"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/icx_white"
+                    />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rlEnter"
+            android:layout_width="fill_parent"
+            android:layout_height="58dp"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgEnter"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icx_apple" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
+                android:layout_toRightOf="@+id/imgEnter"
+                android:text="个人网站主页"
+                android:textColor="@color/icx_title_main_bg"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvEnterZD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/icx_title_main_bg"
+                android:visibility="gone" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#e0e0e0"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="25dp"
+                android:layout_alignParentBottom="true"/>
+
+            <RelativeLayout
+                android:id="@+id/rlInto"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp">
+
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="10dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ic_setting_into" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlZDList"
+            android:layout_width="fill_parent"
+            android:layout_height="58dp"
+            android:layout_below="@id/rlEnter"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgList"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icx_apple" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/imgList"
+                android:text="GitHub 主页"
+                android:textColor="@color/icx_title_main_bg"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#e0e0e0"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="25dp"
+                android:layout_alignParentBottom="true"/>
+            <RelativeLayout
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp">
+
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="10dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ic_setting_into" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlZDList2"
+            android:layout_width="fill_parent"
+            android:layout_height="58dp"
+            android:layout_below="@id/rlZDList"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgList2"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icx_apple" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/imgList2"
+                android:text="csdn 主页"
+                android:textColor="@color/icx_title_main_bg"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#e0e0e0"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="25dp"
+                android:layout_alignParentBottom="true"/>
+            <RelativeLayout
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp">
+
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="10dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ic_setting_into" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="路漫漫其修远兮，吾将上下而求索"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

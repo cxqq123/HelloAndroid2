@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.cx.helloandroid2.R;
 import com.cx.helloandroid2.adapter.AdapterMessage;
@@ -158,12 +159,19 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
                 popWindow.dismiss();
                 switch(position){
                     case 0://设置
+                        goToSetting();
                         break;
                     case 1://扫码
+                        Toast.makeText(mContext, "目前暂无扫码功能" , Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
         });
+    }
+
+    public void goToSetting(){
+        Intent intent = new Intent(mContext , SettingActivity.class);
+        startActivity(intent);
     }
 
     @Override

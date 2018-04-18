@@ -123,7 +123,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void handlerLogin(boolean isLogin){
         if (isLogin) {
             serverManager.setUsername(username);
-            serverManager.setUsername(username);
             goHome();
             finish();
         } else {

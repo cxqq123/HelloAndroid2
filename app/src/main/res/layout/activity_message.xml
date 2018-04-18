@@ -33,7 +33,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:layout_centerInParent="true"
-                    android:text="消息"
+                    android:text="好友列表"
                     android:textColor="@color/icx_white"
                     android:textSize="18sp" />
 

@@ -174,8 +174,6 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
                 inputManager.showSoftInput(etText,0);
                 break;
             case R.id.tv_send:
-                Toast.makeText(mContext,"发送了一条消息",Toast.LENGTH_SHORT).show();
-
                 String content = etText.getText().toString();
                 if (!Utils.isNullOrEmpty(content)) {
                     ModelChatMsg msg = new ModelChatMsg();
@@ -188,10 +186,13 @@ public class TalkActivity extends AppCompatActivity implements View.OnClickListe
                     if (sendToChatObj(msg.getContent())) {
                         ModelChatMsg.modelChatMsgList.add(msg);
                         modelChatMsgList.add(msg);
+                        Toast.makeText(TalkActivity.this, "消息发送成功", Toast.LENGTH_SHORT).show();
                         etText.setText("");
                     } else {
-                        Toast.makeText(TalkActivity.this, "send failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TalkActivity.this, "消息发送失败", Toast.LENGTH_SHORT).show();
                     }
+                }else{
+                    Toast.makeText(mContext,"消息内容不能为空",Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
