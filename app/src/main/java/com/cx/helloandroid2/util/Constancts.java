@@ -14,4 +14,5 @@ public class Constancts {
     public static final String CHAT_MSG = "chat_msg";
 
     public static final String WEBSITE = "person_website";
+    public static final String WEBSITE_TITLE = "website_title";
 }

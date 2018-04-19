@@ -85,6 +85,7 @@ public class MessageActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void bindData(){
+
         Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(),R.drawable.icx_apple);
         List<String> data = ParaseData.getAllGroupList(mContext);
         for(String str : data){

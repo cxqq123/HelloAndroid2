@@ -24,6 +24,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.cx.helloandroid2.R;
 import com.cx.helloandroid2.util.Constancts;
@@ -34,6 +35,8 @@ public class WebViewActivity extends AppCompatActivity {
 
     private RelativeLayout rlMainBack;
     private WebView web;
+    private TextView tvTitle;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -45,14 +48,17 @@ public class WebViewActivity extends AppCompatActivity {
     }
 
     private String webUrl = "";
+    private String webTitle = "";
     public void initView(){
         Intent intent = getIntent();
         webUrl = intent.getStringExtra(Constancts.WEBSITE);
+        webTitle = intent.getStringExtra(Constancts.WEBSITE_TITLE);
         rlMainBack = (RelativeLayout) findViewById(R.id.rl_main_back);
         web = (WebView) findViewById(R.id.web);
+        tvTitle = (TextView) findViewById(R.id.tv_title);
         initWebView(web);
         web.loadUrl(webUrl);
-
+        tvTitle.setText(webTitle);
         rlMainBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -19,6 +19,9 @@ public class SettingActivity extends AppCompatActivity {
     private RelativeLayout rlEnter;
     private RelativeLayout rlZDList;
     private RelativeLayout rlZDList2;
+    private RelativeLayout rlZDList3;
+
+
     private Context mContext;
 
 
@@ -37,6 +40,7 @@ public class SettingActivity extends AppCompatActivity {
         rlEnter = (RelativeLayout) findViewById(R.id.rlEnter);
         rlZDList = (RelativeLayout) findViewById(R.id.rlZDList);
         rlZDList2 = (RelativeLayout) findViewById(R.id.rlZDList2);
+        rlZDList3 = (RelativeLayout) findViewById(R.id.rlZDList3);
 
         rlMainBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +54,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(mContext , WebViewActivity.class);
                 intent.putExtra(Constancts.WEBSITE , "http://www.cxsmart123.cn");
+                intent.putExtra(Constancts.WEBSITE_TITLE , "cx羽主页");
                 startActivity(intent);
             }
         });
@@ -59,6 +64,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(mContext , WebViewActivity.class);
                 intent.putExtra(Constancts.WEBSITE , "https://github.com/cxqq123");
+                intent.putExtra(Constancts.WEBSITE_TITLE , "Github");
                 startActivity(intent);
             }
         });
@@ -68,6 +74,17 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(mContext , WebViewActivity.class);
                 intent.putExtra(Constancts.WEBSITE , "https://blog.csdn.net/m0_37094131");
+                intent.putExtra(Constancts.WEBSITE_TITLE , "csdn");
+                startActivity(intent);
+            }
+        });
+
+        rlZDList3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext , WebViewActivity.class);
+                intent.putExtra(Constancts.WEBSITE , "https://www.baidu.com");
+                intent.putExtra(Constancts.WEBSITE_TITLE , "百度");
                 startActivity(intent);
             }
         });
